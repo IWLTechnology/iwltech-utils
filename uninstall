@@ -1,0 +1,21 @@
+#!/bin/bash
+BASE_LOCATION="/bin/iwltech"
+if [ $(whoami) != "root" ] ; then
+	echo "Attempting to run as root..."
+	sudo bash $0
+	exit 0
+fi
+
+clear
+
+read -p "Do you want to remove configuration files? [y/n] (default n): " c
+if [ "$c" = "y" -o "$c" = "Y" ] ; then
+	rm -rf "/etc/iwltech"
+fi
+
+rm -rf "/bin/iwltech/version.txt"
+rm -rf "/bin/iwltech/iwltech"
+rm -rf "/bin/iwltech/install"
+rm -rf "/bin/iwltech/uninstaller"
+rm -rf "/var/log/iwltech"
+exit 0

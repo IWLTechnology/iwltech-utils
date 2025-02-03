@@ -1,0 +1,65 @@
+#!/bin/bash
+BASE_LOCATION="/bin/iwltech"
+c="y"
+
+if [ $(whoami) != "root" ] ; then
+	echo "Attempting to run as root..."
+	sudo bash "./install-now"
+	exit 0
+fi
+
+clear
+
+read -p "This script assumes you are in the same directory as it. If not, please quit now with Ctrl+C. Otherwise, press enter."
+
+tar -xvzf ./src.tar.gz -C ./ &> "/dev/null"
+read -p "Are you sure you want to install? This will remove any existing installation. You will be prompted about configs later. [y/n] (default n): " o
+if [ "$o" = "y" -o "$o" = "Y" ] ; then
+	echo "Starting installation..."
+	if [ "$(grep "version=" "/bin/iwltech/version.txt" | cut -d'=' -f1)" != "" ] ; then
+		c="n"
+	fi
+	rm -rf "/bin/iwltech"
+	rm -rf "/var/log/iwltech"
+	mkdir -p "/bin/iwltech"
+	cp "./bin/iwltech" "/bin" -r
+	mkdir -p "/var/log/iwltech"
+	if [ "$c" = "n" ] ; then
+		read -p "Do you want to keep the current configuration files? [y/n] (default: y): " k
+		if [ "$k" = "n" -o "$k" = "N" ] ; then
+			rm -rf "/etc/iwltech"
+			mkdir -p "/etc/iwltech"
+			cp "./etc/iwltech" "/etc" -r
+		fi
+	fi
+	cp "./version.txt" "/bin/iwltech/version.txt" -r
+	cp "./uninstall" "/bin/iwltech/uninstaller" -r
+	cp "./install-now" "/bin/iwltech/install" -r
+	echo "Installing dependencies... This may take a while."
+	sudo dnf install rpmconf flatpak remove-retired-packages -y &> "/dev/null"
+	echo "Dependencies installed."
+	chmod +x "/bin/iwltech/uninstaller"
+	chmod +x "/bin/iwltech/installer"
+	chmod +x "/bin/iwltech/install"
+	chmod +x "/bin/iwltech/iwltech"
+	echo 'PATH="/bin/iwltech:$PATH"' >> "$HOME/.bashrc"
+	echo 'PATH="/bin/iwltech:$PATH"' >> "/root/.bashrc"
+	echo 'export PATH' >> "$HOME/.bashrc"
+	echo 'export PATH' >> "/root/.bashrc"
+	rm -rf ./bin
+	rm -rf ./etc
+	read -p "Do you want to run the iwltech-util config to create custom configurations? [y/n] (default n): " config
+	if [ "$config" = "y" -o "$config" = "Y" ] ; then
+		sudo "/bin/iwltech/iwltech" "config" "-r=all"
+	fi
+	read -p "Do you want to run the iwltech-utils maintenance script twice to set it up? [y/n] (default y): " main
+	if [ "$main" != "n" -a "$main" != "N" ] ; then
+		sudo "/bin/iwltech/iwltech" "maintenance"
+		sudo "/bin/iwltech/iwltech" "maintenance"
+	fi
+	echo "Install complete. Exit the shell for changes to made. After that, run the command 'iwltech' to get started."
+	exit 0
+else
+	echo "Operation cancelled by user."
+	exit 1
+fi
