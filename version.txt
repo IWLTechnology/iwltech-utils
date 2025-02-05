@@ -1,1 +1,1 @@
-version=1.0-custom
+version=0.51-custom
