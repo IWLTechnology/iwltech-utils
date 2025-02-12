@@ -2,6 +2,12 @@
 BASE_LOCATION="/bin/iwltech"
 c="y"
 
+source /etc/os-release
+if [ $( echo $ID ) != "fedora" ] ; then
+	echo "This script can only run on fedora."
+	exit 1
+fi
+
 if [ $(whoami) != "root" ] ; then
 	echo "Attempting to run as root..."
 	sudo bash "./install-now"
@@ -15,6 +21,27 @@ read -p "This script assumes you are in the same directory as it. If not, please
 tar -xvzf ./src.tar.gz -C ./ &> "/dev/null"
 read -p "Are you sure you want to install? This will remove any existing installation. You will be prompted about configs later. [y/n] (default n): " o
 if [ "$o" = "y" -o "$o" = "Y" ] ; then
+	CURRENT_VER=$( grep "version=" "/bin/iwltech/version.txt" | cut -d'=' -f2 )
+	NEW_VER=$( grep "version=" "./version.txt" | cut -d'=' -f2 )
+	if [ $( echo "$NEW_VER" | grep '-' ) ] ; then
+		NEW_VER=$( echo "$NEW_VER" | cut -d'-' -f1 )
+	fi
+	if [ $( echo "$CURRENT_VER" | grep '-' ) ] ; then
+		CURRENT_VER=$( echo "$CURRENT_VER" | cut -d'-' -f1 )
+	fi
+	if [ $(($CURRENT_VER)) -gt $(($NEW_VER)) ] ; then
+		read -p "Are you sure you want to install? The version to be installed is outdated. [y/n] (default: n): " iq
+		if [ "$iq" != "y" -a "$iq" != "Y" ] ; then
+			echo "Operation cancelled by user."
+			exit 1
+		fi
+	elif [ $(($CURRENT_VER)) -eq $((NEW_VER)) ] ; then
+		read -p "Are you sure you want to install? The version to be installed is the same as yours. Only your configs will be changed. [y/n] (default: n): " iqt
+		if [ "$iqt" != "y" -a "$iqt" != "Y" ] ; then
+			echo "Operation cancelled by user."
+			exit 1
+		fi
+	fi
 	echo "Starting installation..."
 	if [ "$(grep "version=" "/bin/iwltech/version.txt" | cut -d'=' -f1)" != "" ] ; then
 		c="n"
@@ -32,6 +59,7 @@ if [ "$o" = "y" -o "$o" = "Y" ] ; then
 			cp "./etc/iwltech" "/etc" -r
 		fi
 	fi
+	cp "./README.md" "/bin/iwltech/README.md" -r
 	cp "./version.txt" "/bin/iwltech/version.txt" -r
 	cp "./uninstall" "/bin/iwltech/uninstaller" -r
 	cp "./install-now" "/bin/iwltech/install" -r
@@ -42,10 +70,14 @@ if [ "$o" = "y" -o "$o" = "Y" ] ; then
 	chmod +x "/bin/iwltech/installer"
 	chmod +x "/bin/iwltech/install"
 	chmod +x "/bin/iwltech/iwltech"
-	echo 'PATH="/bin/iwltech:$PATH"' >> "$HOME/.bashrc"
-	echo 'PATH="/bin/iwltech:$PATH"' >> "/root/.bashrc"
-	echo 'export PATH' >> "$HOME/.bashrc"
-	echo 'export PATH' >> "/root/.bashrc"
+	if [ $(echo $PATH | grep "/bin/iwltech") != "" ] ; then
+		echo "Binaries already added to PATH"
+	else
+		echo 'PATH="/bin/iwltech:$PATH"' >> "$HOME/.bashrc"
+		echo 'PATH="/bin/iwltech:$PATH"' >> "/root/.bashrc"
+		echo 'export PATH' >> "$HOME/.bashrc"
+		echo 'export PATH' >> "/root/.bashrc"
+	fi
 	rm -rf ./bin
 	rm -rf ./etc
 	read -p "Do you want to run the iwltech-util config to create custom configurations? [y/n] (default n): " config

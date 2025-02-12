@@ -17,5 +17,6 @@ rm -rf "/bin/iwltech/version.txt"
 rm -rf "/bin/iwltech/iwltech"
 rm -rf "/bin/iwltech/install"
 rm -rf "/bin/iwltech/uninstaller"
+rm -rf "/bin/iwltech/README.md"
 rm -rf "/var/log/iwltech"
 exit 0
