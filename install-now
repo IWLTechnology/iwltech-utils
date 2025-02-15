@@ -81,9 +81,7 @@ if [ "$o" = "y" -o "$o" = "Y" ] ; then
 		sudo "/bin/iwltech/iwltech" "maintenance"
 		sudo "/bin/iwltech/iwltech" "maintenance"
 	fi
-	if [ -z $(echo $PATH | grep "/bin/iwltech") ] ; then
-		echo "To have the script run on command 'iwltech', edit your .bashrc (go to ~/.bashrc) to add /bin/iwltech to your PATH. Also, edit root's .bashrc (go to /root/.bashrc) to add /bin/iwltech to its PATH as well."
-	fi
+	echo "To have the script run on command 'iwltech', edit your .bashrc (go to ~/.bashrc) to add /bin/iwltech to your PATH. Also, edit root's .bashrc (go to /root/.bashrc) to add /bin/iwltech to its PATH as well."
 	echo "Install complete. Exit the shell for changes to made. After that, run the command '/bin/iwltech/iwltech' to get started, or follow the above steps to add to PATH, then run 'iwltech' to get started."
 	exit 0
 else
