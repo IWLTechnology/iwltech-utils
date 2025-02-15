@@ -18,7 +18,7 @@ clear
 
 read -p "This script assumes you are in the same directory as it. If not, please quit now with Ctrl+C. Otherwise, press enter."
 
-tar -xvzf ./src.tar.gz -C ./ &> "/dev/null"
+tar -xvzf ./src.tar.gz -C ./ >> "/dev/null"
 read -p "Are you sure you want to install? This will remove any existing installation. You will be prompted about configs later. [y/n] (default n): " o
 if [ "$o" = "y" -o "$o" = "Y" ] ; then
 	CURRENT_VER=$( grep "version=" "/bin/iwltech/version.txt" | cut -d'=' -f2 )
@@ -64,7 +64,7 @@ if [ "$o" = "y" -o "$o" = "Y" ] ; then
 	cp "./uninstall" "/bin/iwltech/uninstaller" -r
 	cp "./install-now" "/bin/iwltech/install" -r
 	echo "Installing dependencies... This may take a while."
-	sudo dnf install rpmconf flatpak remove-retired-packages -y &> "/dev/null"
+	sudo dnf install rpmconf flatpak remove-retired-packages -y >> "/dev/null"
 	echo "Dependencies installed."
 	chmod +x "/bin/iwltech/uninstaller"
 	chmod +x "/bin/iwltech/installer"

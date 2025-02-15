@@ -68,37 +68,37 @@ You will have all you need on a fresh Fedora Workstation operating system.
     
 #### Release V2
 
-Add post-install
+    Add post-install
     
 #### Release V3
 
-Add custom tailored configs for maintenance and post-install
+    Add custom tailored configs for maintenance and post-install
     
 #### Release V4
 
-Add logs feature
+    Add logs feature
     
 #### Release V5
 
-Sort search package results and streamline package jumps for search & check-update
+    Sort search package results and streamline package jumps for search & check-update
     
 #### Release V6
 
-Sort check-update results
-Colour outputs
+    Sort check-update results
+    Colour outputs
     
 #### Release V7
 
-Add intelligent search to the package manager (install & uninstall) (searching dnf & flatpak, if only one exists, run on it, otherwise prompt)
+    Add intelligent search to the package manager (install & uninstall) (searching dnf & flatpak, if only one exists, run on it, otherwise prompt)
     
 #### Release V8
 
-Add autorun for keyboard shortcuts.
+    Add autorun for keyboard shortcuts.
     
 #### Release V9
 
-Add schedule and timer options, and their configs.
+    Add schedule and timer options, and their configs.
 
 ### Copyright
 
-The code in this repository is hosted and created by IWLTech. It is licensed under the "I HATE AI LICENSE" (https://github.com/IWLTechnology/project-licences/blob/main/I_HATE_AI_LICENSE). Feel free to modify and remix as long as it abides by the license. The Linux utilities used in this script are licensed differently, and this license does not override it.
+    The code in this repository is hosted and created by IWLTech. It is licensed under the "I HATE AI LICENSE" (https://github.com/IWLTechnology/project-licences/blob/main/I_HATE_AI_LICENSE). Feel free to modify and remix as long as it abides by the license. The Linux utilities used in this script are licensed differently, and this license does not override it.
