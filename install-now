@@ -58,6 +58,9 @@ if [ "$o" = "y" -o "$o" = "Y" ] ; then
 			mkdir -p "/etc/iwltech"
 			cp "./etc/iwltech" "/etc" -r
 		fi
+	else
+		mkdir -p "/etc/iwltech"
+		cp "./etc/iwltech" "/etc" -r
 	fi
 	cp "./README.md" "/bin/iwltech/README.md" -r
 	cp "./version.txt" "/bin/iwltech/version.txt" -r
