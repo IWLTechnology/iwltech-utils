@@ -64,19 +64,19 @@ if [ "$o" = "y" -o "$o" = "Y" ] ; then
 	cp "./uninstall" "/bin/iwltech/uninstaller" -r
 	cp "./install-now" "/bin/iwltech/install" -r
 	echo "Installing dependencies... This may take a while."
-	sudo dnf install rpmconf flatpak remove-retired-packages -y >> "/dev/null"
+	sudo dnf install rpmconf flatpak remove-retired-packages -y
 	echo "Dependencies installed."
 	chmod +x "/bin/iwltech/uninstaller"
 	chmod +x "/bin/iwltech/installer"
 	chmod +x "/bin/iwltech/install"
 	chmod +x "/bin/iwltech/iwltech"
-	if [ $(echo $PATH | grep "/bin/iwltech") != "" ] ; then
-		echo "Binaries already added to PATH"
-	else
+	if [ -z $(echo $PATH | grep "/bin/iwltech") ] ; then
 		echo 'PATH="/bin/iwltech:$PATH"' >> "$HOME/.bashrc"
 		echo 'PATH="/bin/iwltech:$PATH"' >> "/root/.bashrc"
 		echo 'export PATH' >> "$HOME/.bashrc"
 		echo 'export PATH' >> "/root/.bashrc"
+	else
+		echo "Binaries already added to PATH"
 	fi
 	rm -rf ./bin
 	rm -rf ./etc
