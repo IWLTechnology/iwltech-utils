@@ -3,11 +3,7 @@ BASE_LOCATION="/bin/iwltech"
 c="y"
 
 source /etc/os-release
-if [ $( echo $ID ) != "fedora" ] ; then
-	echo "This script can only run on fedora."
-	exit 1
-fi
-
+if [ $( echo $ID ) = "fedora" ] ; then
 if [ $(whoami) != "root" ] ; then
 	echo "Attempting to run as root..."
 	sudo bash "./install-now"
@@ -90,4 +86,7 @@ if [ "$o" = "y" -o "$o" = "Y" ] ; then
 else
 	echo "Operation cancelled by user."
 	exit 1
+fi
+else
+echo "Error - this script can only run on Fedora!"
 fi
