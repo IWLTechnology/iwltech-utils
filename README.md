@@ -6,9 +6,7 @@
 To install, simply clone this repository, make install-now executable, then run it. The usage is printed after install when you run iwltech.
 
 #### Dependencies
-    dnf
-    bash
-    basic utilities such as git, grep, cut, mv, cp, cd, mkdir, sudo, chmod, tar
+    dnf, bash, git, grep, cut, mv, cp, cd, mkdir, sudo, chmod, tar
 You will have all you need on a fresh Fedora Workstation operating system.
 
 ### Features
@@ -97,6 +95,6 @@ Add autorun for keyboard shortcuts.
 
 Add schedule and timer options, and their configs.
 
-### Copyright
+### Licensing
 
-The code in this repository is hosted and created by IWLTech. It is licensed under the "I HATE AI LICENSE" (https://github.com/IWLTechnology/project-licences/blob/main/I_HATE_AI_LICENSE). Feel free to modify and remix as long as it abides by the license. The Linux utilities used in this script are licensed differently, and this license does not override it.
+The code in this repository is hosted and created by IWLTech. It is licensed under the "I HATE AI LICENSE" (https://github.com/IWLTechnology/project-licences/blob/main/I_HATE_AI_LICENSE). Feel free to modify and remix as long as it abides by the license. The Linux utilities used in this script are licensed differently, please see their respective licenses for more information.
