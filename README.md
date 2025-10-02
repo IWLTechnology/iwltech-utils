@@ -6,8 +6,6 @@
 To install, simply clone this repository, make install-now executable, then run it. The usage is printed after install when you run iwltech.
 
 #### Dependencies
-
-Some dependencies are required to run this script, which need to be installed beforehand.
     dnf
     bash
     basic utilities such as git, grep, cut, mv, cp, cd, mkdir, sudo, chmod, tar
